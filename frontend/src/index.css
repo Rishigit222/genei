@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#07090e] text-slate-200 antialiased font-sans selection:bg-cyan-500 selection:text-slate-900;
+  }
+}
+
+/* Custom glowing pulse for active investigation paths */
+@keyframes pathGlow {
+  0%, 100% {
+    stroke: #00f2fe;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 6px rgba(0, 242, 254, 0.8));
+  }
+  50% {
+    stroke: #ff4e00;
+    stroke-width: 4;
+    filter: drop-shadow(0 0 12px rgba(255, 78, 0, 0.9));
+  }
+}
+
+.active-path-edge path {
+  animation: pathGlow 2s infinite ease-in-out;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0d111a;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f293d;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2d3b54;
+}
