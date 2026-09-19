@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar } from './components/Navbar';
+import { AppShell } from './components/AppShell';
 import { Dashboard } from './pages/Dashboard';
 import { KnowledgeGraphExplorer } from './pages/KnowledgeGraphExplorer';
 import { InvestigationWorkspace } from './pages/InvestigationWorkspace';
@@ -45,56 +45,54 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090e] text-slate-200 flex flex-col font-sans">
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        falkorConnected={falkorConnected}
-      />
-
-      <main className="flex-1 p-6 overflow-y-auto">
-        {activeTab === 'dashboard' && (
-          <Dashboard
-            graphData={graphData}
-            onLaunchDemo={handleLaunchDemo}
-            onNavigate={(tab) => setActiveTab(tab)}
-          />
-        )}
-        {activeTab === 'workspace' && (
-          <InvestigationWorkspace
-            graphData={graphData}
-            investigationState={investigationState}
-            setInvestigationState={setInvestigationState}
-            onRefreshGraph={refreshData}
-          />
-        )}
-        {activeTab === 'graph' && (
-          <KnowledgeGraphExplorer graphData={graphData} />
-        )}
-        {activeTab === 'evidence' && (
-          <EvidenceExplorer />
-        )}
-        {activeTab === 'contradictions' && (
-          <ContradictionCenter
-            contradictions={investigationState?.contradictions || []}
-            onNavigateToRepairs={() => setActiveTab('repairs')}
-          />
-        )}
-        {activeTab === 'repairs' && (
-          <RepairCenter
-            proposals={investigationState?.repair_proposals || []}
-            onRefreshGraph={refreshData}
-          />
-        )}
-        {activeTab === 'audit' && (
-          <AuditTimeline />
-        )}
-        {activeTab === 'health' && (
-          <SystemHealth />
-        )}
-      </main>
-    </div>
+    <AppShell
+      activeTab={activeTab}
+      setActiveTab={setActiveTab}
+      falkorConnected={falkorConnected}
+      onLaunchDemo={handleLaunchDemo}
+    >
+      {activeTab === 'dashboard' && (
+        <Dashboard
+          graphData={graphData}
+          onLaunchDemo={handleLaunchDemo}
+          onNavigate={(tab) => setActiveTab(tab)}
+        />
+      )}
+      {activeTab === 'workspace' && (
+        <InvestigationWorkspace
+          graphData={graphData}
+          investigationState={investigationState}
+          setInvestigationState={setInvestigationState}
+          onRefreshGraph={refreshData}
+        />
+      )}
+      {activeTab === 'graph' && (
+        <KnowledgeGraphExplorer graphData={graphData} />
+      )}
+      {activeTab === 'evidence' && (
+        <EvidenceExplorer />
+      )}
+      {activeTab === 'contradictions' && (
+        <ContradictionCenter
+          contradictions={investigationState?.contradictions || []}
+          onNavigateToRepairs={() => setActiveTab('repairs')}
+        />
+      )}
+      {activeTab === 'repairs' && (
+        <RepairCenter
+          proposals={investigationState?.repair_proposals || []}
+          onRefreshGraph={refreshData}
+        />
+      )}
+      {activeTab === 'audit' && (
+        <AuditTimeline />
+      )}
+      {activeTab === 'health' && (
+        <SystemHealth />
+      )}
+    </AppShell>
   );
 };
 
 export default App;
+
